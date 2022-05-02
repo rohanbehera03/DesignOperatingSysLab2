@@ -391,6 +391,28 @@ yield(void)
   release(&ptable.lock);
 }
 
+void
+updatePriority(int prior_val) { //field with values ranging from 0-31
+    struct  proc *currentProc = myproc();
+    if (prior_val > 31) {
+        currentProc->prior_val = 31;
+    }
+    else if (prior_val < 0) {
+        currentProc->prior_val = 0;
+    }
+    else {
+        currentProc->prior_val = prior_val;
+    }
+}
+
+int
+getPriority() { //new system call to update prior_val
+    struct  proc *currentProc = myproc();
+    return currentProc->prior_val;
+}
+
+
+
 // A fork child's very first scheduling by scheduler()
 // will swtch here.  "Return" to user space.
 void
