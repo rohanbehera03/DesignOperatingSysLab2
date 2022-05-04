@@ -23,7 +23,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-void updatePriority(int);
+void setPriority(int);
 int getPriority(void);
 
 // ulib.c

@@ -88,6 +88,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  p->prior_val = 15; //initializing priority value in allocproc()
 
   release(&ptable.lock);
 
@@ -207,6 +208,8 @@ fork(void)
     if(curproc->ofile[i])
       np->ofile[i] = filedup(curproc->ofile[i]);
   np->cwd = idup(curproc->cwd);
+
+    np->prior_val = curproc->prior_val; //child inherits the parent;s priority value
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
@@ -392,7 +395,8 @@ yield(void)
 }
 
 void
-updatePriority(int prior_val) { //field with values ranging from 0-31
+setPriority(int prior_val) { //field with values ranging from 0-31
+                            //Implementing aging to avoid starvation
     struct  proc *currentProc = myproc();
     if (prior_val > 31) {
         currentProc->prior_val = 31;
