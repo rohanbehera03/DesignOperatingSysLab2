@@ -12,13 +12,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29dc64be-3aa0-49ba-a7dc-ae2be56165dd" name="Changes" comment="Finished step 4: modify scheduler() to update procs' priority value">
+    <list default="true" id="29dc64be-3aa0-49ba-a7dc-ae2be56165dd" name="Changes" comment="Finished step 5: turnaround and waiting time">
+      <change afterPath="$PROJECT_DIR$/lab2test.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exec.c" beforeDir="false" afterPath="$PROJECT_DIR$/exec.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proc.c" beforeDir="false" afterPath="$PROJECT_DIR$/proc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proc.h" beforeDir="false" afterPath="$PROJECT_DIR$/proc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/syscall.h" beforeDir="false" afterPath="$PROJECT_DIR$/syscall.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user.h" beforeDir="false" afterPath="$PROJECT_DIR$/user.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +126,7 @@
       <workItem from="1650998596919" duration="2032000" />
       <workItem from="1651128364580" duration="8117000" />
       <workItem from="1651593515828" duration="548000" />
-      <workItem from="1651631034995" duration="16599000" />
+      <workItem from="1651631034995" duration="16843000" />
     </task>
     <task id="LOCAL-00001" summary="Start from scratch">
       <created>1650999206214</created>
@@ -180,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651725716594</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Finished step 5: turnaround and waiting time">
+      <created>1651734659273</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1651734659273</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +235,7 @@
     <MESSAGE value="Finished step 2: void set_prior(int prior_lvl)" />
     <MESSAGE value="Finished step 3: implement round robin and priority scheduling" />
     <MESSAGE value="Finished step 4: modify scheduler() to update procs' priority value" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished step 4: modify scheduler() to update procs' priority value" />
+    <MESSAGE value="Finished step 5: turnaround and waiting time" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished step 5: turnaround and waiting time" />
   </component>
 </project>
