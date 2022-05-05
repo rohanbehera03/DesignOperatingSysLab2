@@ -88,7 +88,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-  p->prior_val = 15; //initializing priority value in allocproc()
+  p->prior_val = 15; //initializing priority value in allocproc(). Step 1
 
   release(&ptable.lock);
 
@@ -395,7 +395,7 @@ yield(void)
 }
 
 void
-setPriority(int prior_val) { //field with values ranging from 0-31
+set_prior(int prior_val) { //field with values ranging from 0-31
                             //Implementing aging to avoid starvation
     struct  proc *currentProc = myproc();
     if (prior_val > 31) {
@@ -410,7 +410,7 @@ setPriority(int prior_val) { //field with values ranging from 0-31
 }
 
 int
-getPriority() { //new system call to update prior_val
+get_prior() { //new system call to update prior_val
     struct  proc *currentProc = myproc();
     return currentProc->prior_val;
 }

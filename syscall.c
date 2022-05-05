@@ -103,8 +103,8 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
-extern int sys_setPriority(void); //updating prior_val
-extern int sys_getPriority(void);
+extern int sys_set_prior(void); //updating prior_val
+extern int sys_get_prior(void);
 extern int sys_yield(void);
 
 static int (*syscalls[])(void) = {
@@ -129,8 +129,8 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
-[SYS_setPriority] sys_setPriority, //updating prior_val
-[SYS_getPriority] sys_getPriority,
+[SYS_set_prior] sys_set_prior, //updating prior_val
+[SYS_get_prior] sys_get_prior,
 [SYS_yield] sys_yield
 };
 

@@ -91,15 +91,15 @@ sys_uptime(void)
 }
 
 void
-sys_updatePriority(void) {
+sys_set_prior(int) {
     int priority;
     argint(0, &priority);
-    return updatePriority(priority);
+    return set_prior(priority);
 }
 
 int
-sys_getPriority(void) {
-    return getPriority();
+sys_get_prior(void) {
+    return get_prior();
 }
 
 void
