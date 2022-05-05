@@ -91,18 +91,19 @@ sys_uptime(void)
 }
 
 void
-sys_set_prior(int) {
-    int priority;
-    argint(0, &priority);
-    return set_prior(priority);
+sys_updatePriority(void) {
+    int prior_val = 0;
+    argint(0, &prior_val);
+
+    if (prior_val > 31) {
+        updatePriority(31);
+    }
+    else if (prior_val < 0) {
+        updatePriority(0);
+    }
+    else {
+        updatePriority(prior_val);
+    }
 }
 
-int
-sys_get_prior(void) {
-    return get_prior();
-}
 
-void
-sys_yield(void) {
-    return yield();
-}

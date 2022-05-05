@@ -29,6 +29,4 @@ SYSCALL(getpid)
 SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
-SYSCALL(set_prior) //Step 2
-SYSCALL(get_prior) //Step 2
-SYSCALL(yield) //Step 2
+SYSCALL(updatePriority) //Step 2

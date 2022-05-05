@@ -237,8 +237,8 @@ exit(void)
   curproc->T_finish = ticks;
   int timeTurnAround = curproc->T_finish - curproc->T_start;
   int timeWaiting = timeTurnAround;
-  cprintf("Turnaround time = %d\n", );
-  cprintf("Waiting time = %d\n", )
+  cprintf("Turnaround time = %d\n", timeTurnAround);
+  cprintf("Waiting time = %d\n", timeWaiting);
   if(curproc == initproc)
     panic("init exiting");
 
@@ -334,9 +334,10 @@ void
 scheduler(void)
 {
   struct proc *p;
-  struct proc *p2; //Round robin: next runnable process p
   struct cpu *c = mycpu();
-  struct proc *min_prior = NULL; //Process with minimum priority from all processes
+
+    struct proc *p2; //Round robin: next runnable process p
+    struct proc *min_prior; //Process with minimum priority from all processes
 
   c->proc = 0;
   
@@ -350,9 +351,9 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
-      min_prior = p; //Round robin: acquires resource and starts running
+        min_prior = p; //Round robin: acquires resource and starts running
 
-      for (p2 = ptable.proc; p < &table.proc[NPROC]; p++) {
+      for (p2 = ptable.proc; p2 < &ptable.proc[NPROC]; p2++) {
           if(p2->state != RUNNABLE)
               continue;
           min_prior = p2;
@@ -421,27 +422,13 @@ yield(void)
 }
 
 void
-set_prior(int prior_val) { //field with values ranging from 0-31
+updatePriority(int prior_val) { //field with values ranging from 0-31
                             //Implementing aging to avoid starvation
     struct  proc *currentProc = myproc();
-    if (prior_val > 31) {
-        currentProc->prior_val = 31;
-    }
-    else if (prior_val < 0) {
-        currentProc->prior_val = 0;
-    }
-    else {
-        currentProc->prior_val = prior_val;
-    }
+    currentProc->prior_val = prior_val;
+
+    yield();
 }
-
-int
-get_prior() { //new system call to update prior_val
-    struct  proc *currentProc = myproc();
-    return currentProc->prior_val;
-}
-
-
 
 // A fork child's very first scheduling by scheduler()
 // will swtch here.  "Return" to user space.

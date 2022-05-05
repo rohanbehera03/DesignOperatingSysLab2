@@ -20,7 +20,5 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
-#define SYS_set_prior 22 //new system call to update prior_val
-#define SYS_get_prior 23
-#define SYS_yield 24
+#define SYS_updatePriority 22 //new system call to update prior_val
 
