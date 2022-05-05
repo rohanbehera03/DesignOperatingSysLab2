@@ -12,7 +12,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29dc64be-3aa0-49ba-a7dc-ae2be56165dd" name="Changes" comment="Finished step 2: void set_prior(int prior_lvl)">
+    <list default="true" id="29dc64be-3aa0-49ba-a7dc-ae2be56165dd" name="Changes" comment="Finished step 3: implement round robin and priority scheduling">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proc.c" beforeDir="false" afterPath="$PROJECT_DIR$/proc.c" afterDir="false" />
     </list>
@@ -125,7 +125,7 @@
       <workItem from="1650998596919" duration="2032000" />
       <workItem from="1651128364580" duration="8117000" />
       <workItem from="1651593515828" duration="548000" />
-      <workItem from="1651631034995" duration="8483000" />
+      <workItem from="1651631034995" duration="10066000" />
     </task>
     <task id="LOCAL-00001" summary="Start from scratch">
       <created>1650999206214</created>
@@ -162,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651714934366</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Finished step 3: implement round robin and priority scheduling">
+      <created>1651720444854</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1651720444854</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +218,7 @@
     <MESSAGE value="Step 1 Lab 2 done" />
     <MESSAGE value="Finished step 1: Initializing prior_val through allocproc() and fork()" />
     <MESSAGE value="Finished step 2: void set_prior(int prior_lvl)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished step 2: void set_prior(int prior_lvl)" />
+    <MESSAGE value="Finished step 3: implement round robin and priority scheduling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished step 3: implement round robin and priority scheduling" />
   </component>
 </project>

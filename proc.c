@@ -322,6 +322,9 @@ wait(void)
 //  - swtch to start running that process
 //  - eventually that process transfers control
 //      via swtch back to the scheduler.
+
+#define NULL (void*)0 //Cast integer value of 0 to a pointer of any type
+
 void
 scheduler(void)
 {
@@ -352,9 +355,11 @@ scheduler(void)
               min_prior = p2; //Acquires cpu resources and starts running
           }
       }
+
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
+      p = min_prior; //Step 4. Modify scheduler to update procs' value
 
       c->proc = p;
       switchuvm(p);
