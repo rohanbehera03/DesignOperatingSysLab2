@@ -88,7 +88,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-  p->prior_val = 15; //initializing priority value in allocproc(). Step 1
+  p->prior_val = 10; //initializing priority value in allocproc(). Step 1
 
   release(&ptable.lock);
 
@@ -234,8 +234,14 @@ exit(void)
   struct proc *p;
   int fd;
 
+  curproc->T_finish = ticks;
+  int timeTurnAround = curproc->T_finish - curproc->T_start;
+  int timeWaiting = timeTurnAround;
+  cprintf("Turnaround time = %d\n", );
+  cprintf("Waiting time = %d\n", )
   if(curproc == initproc)
     panic("init exiting");
+
 
   // Close all open files.
   for(fd = 0; fd < NOFILE; fd++){
@@ -323,7 +329,6 @@ wait(void)
 //  - eventually that process transfers control
 //      via swtch back to the scheduler.
 
-#define NULL (void*)0 //Cast integer value of 0 to a pointer of any type
 
 void
 scheduler(void)
@@ -331,7 +336,7 @@ scheduler(void)
   struct proc *p;
   struct proc *p2; //Round robin: next runnable process p
   struct cpu *c = mycpu();
-  struct proc *min_prior = NULL;
+  struct proc *min_prior = NULL; //Process with minimum priority from all processes
 
   c->proc = 0;
   
@@ -350,6 +355,9 @@ scheduler(void)
       for (p2 = ptable.proc; p < &table.proc[NPROC]; p++) {
           if(p2->state != RUNNABLE)
               continue;
+          min_prior = p2;
+          min_prior->T_burst = min_prior->T_burst + 1;
+
           // Priority scheduling: finds runnable proc with highest priority
           if (p2->prior_val < min_prior->prior_val) {
               min_prior = p2; //Acquires cpu resources and starts running
@@ -359,7 +367,6 @@ scheduler(void)
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
-      p = min_prior; //Step 4. Modify scheduler to update procs' value
 
       c->proc = p;
       switchuvm(p);
