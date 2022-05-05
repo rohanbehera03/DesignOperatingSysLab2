@@ -326,7 +326,10 @@ void
 scheduler(void)
 {
   struct proc *p;
+  struct proc *p2; //Round robin: next runnable process p
   struct cpu *c = mycpu();
+  struct proc *min_prior = NULL;
+
   c->proc = 0;
   
   for(;;){
@@ -339,9 +342,20 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
+      min_prior = p; //Round robin: acquires resource and starts running
+
+      for (p2 = ptable.proc; p < &table.proc[NPROC]; p++) {
+          if(p2->state != RUNNABLE)
+              continue;
+          // Priority scheduling: finds runnable proc with highest priority
+          if (p2->prior_val < min_prior->prior_val) {
+              min_prior = p2; //Acquires cpu resources and starts running
+          }
+      }
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
+
       c->proc = p;
       switchuvm(p);
       p->state = RUNNING;
