@@ -11,7 +11,6 @@ void work() {
 }
 
 int main() {
-
     updatePriority(0);
     int i = 0;
     int pid = 0;

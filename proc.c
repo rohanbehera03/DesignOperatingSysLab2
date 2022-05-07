@@ -234,9 +234,6 @@ exit(void)
   struct proc *p;
   int fd;
 
-  curproc->T_finish = ticks;
-  int timeTurnAround = curproc->T_finish - curproc->T_start;
-  int timeWaiting = timeTurnAround;
   cprintf("Turnaround time = %d\n", timeTurnAround);
   cprintf("Waiting time = %d\n", timeWaiting);
   if(curproc == initproc)
@@ -269,6 +266,10 @@ exit(void)
         wakeup1(initproc);
     }
   }
+
+    curproc->T_finish = ticks;
+    int timeTurnAround = curproc->T_finish - curproc->T_start;
+    int timeWaiting = timeTurnAround-curproc->T_burst;
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
@@ -358,6 +359,7 @@ scheduler(void)
               continue;
           min_prior = p2;
           min_prior->T_burst = min_prior->T_burst + 1;
+      //    cprintf("Burst time is: %d", min_prior->T_burst);
 
           // Priority scheduling: finds runnable proc with highest priority
           if (p2->prior_val < min_prior->prior_val) {
