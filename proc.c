@@ -88,7 +88,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-  p->prior_val = 10; //initializing priority value in allocproc(). Step 1
+  p->prior_val = 0; //initializing priority value in allocproc() to 0. Step 1
 
   release(&ptable.lock);
 
@@ -209,7 +209,8 @@ fork(void)
       np->ofile[i] = filedup(curproc->ofile[i]);
   np->cwd = idup(curproc->cwd);
 
-    np->prior_val = curproc->prior_val; //child inherits the parent;s priority value. Step 1
+    np->prior_val = curproc->prior_val; //Initialization of prior_value in fork()
+                                        // child inherits the parent's priority value. Step 1
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
@@ -361,7 +362,7 @@ scheduler(void)
               continue;
           min_prior = p2;
           min_prior->T_burst = min_prior->T_burst + 1;
-      //    cprintf("Burst time is: %d", min_prior->T_burst);
+//          cprintf("Burst time is: %d", min_prior->T_burst);
 
           // Priority scheduling: finds runnable proc with highest priority
           if (p2->prior_val < min_prior->prior_val) {
@@ -427,10 +428,10 @@ yield(void)
 }
 
 void
-updatePriority(int prior_val) {
+setPrior(int prior_lvl) {
     //change the priority value of the current proc. Step 2
     struct  proc *currentProc = myproc();
-    currentProc->prior_val = prior_val;
+    currentProc->prior_val = prior_lvl;
 
     // transfer control to scheduler immediately because the priority rank has been changed. Step 2
     yield();

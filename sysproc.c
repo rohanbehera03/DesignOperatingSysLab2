@@ -91,19 +91,19 @@ sys_uptime(void)
 }
 
 void
-sys_updatePriority(void) {
+sys_setPrior(void) {
     int prior_val = 0;
     argint(0, &prior_val);
 
     //Step 1: Add new field to proc structure
     if (prior_val > 31) {
-        updatePriority(31);
+        setPrior(31);
     }
     else if (prior_val < 0) {
-        updatePriority(0);
+        setPrior(0);
     }
     else {
-        updatePriority(prior_val);
+        setPrior(prior_val);
     }
 }
 
