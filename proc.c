@@ -339,12 +339,12 @@ scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
+  c->proc = 0;
 
 
   struct proc *p2; //Round robin: next runnable process p. Step 3
     struct proc *min_prior; //Process with minimum priority from all processes. Step 3
-  c->proc = 0;
-  
+
   for(;;){
     // Enable interrupts on this processor.
     sti();
@@ -361,12 +361,18 @@ scheduler(void)
           if(p2->state != RUNNABLE)
               continue;
           min_prior = p2;
-          min_prior->T_burst = min_prior->T_burst + 1;
+          min_prior->T_burst = min_prior->T_burst + 1; //Step 5
 //          cprintf("Burst time is: %d", min_prior->T_burst);
+      }
 
-          // Priority scheduling: finds runnable proc with highest priority
-          if (p2->prior_val < min_prior->prior_val) {
-              min_prior = p2; //Acquires cpu resources and starts running
+      //Step 4 If a process waits increase its priority
+      // (decrease its value). When it runs, decrease it (increase its value)
+      for (p2 = ptable.proc; p2 < &ptable.proc[NPROC]; p2++) {
+          if (p2->state == RUNNABLE && p2->prior_val > 0) {
+                p2->prior_val--;
+          }
+          if (p2->prior_val < 31) {
+              p2->prior_val++;
           }
       }
 

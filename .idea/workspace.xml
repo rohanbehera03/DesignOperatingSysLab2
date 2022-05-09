@@ -12,15 +12,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29dc64be-3aa0-49ba-a7dc-ae2be56165dd" name="Changes" comment="Added step comments">
+    <list default="true" id="29dc64be-3aa0-49ba-a7dc-ae2be56165dd" name="Changes" comment="Added step 2 comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/defs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2test.c" beforeDir="false" afterPath="$PROJECT_DIR$/lab2test.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proc.c" beforeDir="false" afterPath="$PROJECT_DIR$/proc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/syscall.c" beforeDir="false" afterPath="$PROJECT_DIR$/syscall.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/syscall.h" beforeDir="false" afterPath="$PROJECT_DIR$/syscall.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sysproc.c" beforeDir="false" afterPath="$PROJECT_DIR$/sysproc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user.h" beforeDir="false" afterPath="$PROJECT_DIR$/user.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usys.S" beforeDir="false" afterPath="$PROJECT_DIR$/usys.S" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +127,7 @@
       <workItem from="1651128364580" duration="8117000" />
       <workItem from="1651593515828" duration="548000" />
       <workItem from="1651631034995" duration="32669000" />
-      <workItem from="1652072300723" duration="2130000" />
+      <workItem from="1652072300723" duration="5332000" />
     </task>
     <task id="LOCAL-00001" summary="Start from scratch">
       <created>1650999206214</created>
@@ -218,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652068806658</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added step 2 comments">
+      <created>1652079967078</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1652079967078</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,6 +276,7 @@
     <MESSAGE value="Fixed errors" />
     <MESSAGE value="Fixed output to display properly" />
     <MESSAGE value="Added step comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added step comments" />
+    <MESSAGE value="Added step 2 comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added step 2 comments" />
   </component>
 </project>

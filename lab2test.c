@@ -11,13 +11,13 @@ void work() {
 }
 
 int main() {
-    updatePriority(0);
+    setPrior(0);
     int i = 0;
     int pid = 0;
     for(i = 0; i < 3; i++) {
         pid = fork();
         if(!pid) {
-            updatePriority(i * 10);
+            setPrior(i * 10);
             work();
             printf(0, "child %d done\n", getpid());
             exit();
