@@ -95,6 +95,7 @@ sys_updatePriority(void) {
     int prior_val = 0;
     argint(0, &prior_val);
 
+    //Step 1: Add new field to proc structure
     if (prior_val > 31) {
         updatePriority(31);
     }

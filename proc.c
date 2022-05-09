@@ -209,7 +209,7 @@ fork(void)
       np->ofile[i] = filedup(curproc->ofile[i]);
   np->cwd = idup(curproc->cwd);
 
-    np->prior_val = curproc->prior_val; //child inherits the parent;s priority value
+    np->prior_val = curproc->prior_val; //child inherits the parent;s priority value. Step 1
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
@@ -234,8 +234,7 @@ exit(void)
   struct proc *p;
   int fd;
 
-  cprintf("Turnaround time = %d\n", timeTurnAround);
-  cprintf("Waiting time = %d\n", timeWaiting);
+
   if(curproc == initproc)
     panic("init exiting");
 
@@ -270,6 +269,9 @@ exit(void)
     curproc->T_finish = ticks;
     int timeTurnAround = curproc->T_finish - curproc->T_start;
     int timeWaiting = timeTurnAround-curproc->T_burst;
+
+    cprintf("Turnaround time = %d\n", timeTurnAround);
+    cprintf("Waiting time = %d\n", timeWaiting);
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
@@ -337,9 +339,9 @@ scheduler(void)
   struct proc *p;
   struct cpu *c = mycpu();
 
-    struct proc *p2; //Round robin: next runnable process p
-    struct proc *min_prior; //Process with minimum priority from all processes
 
+  struct proc *p2; //Round robin: next runnable process p. Step 3
+    struct proc *min_prior; //Process with minimum priority from all processes. Step 3
   c->proc = 0;
   
   for(;;){
@@ -352,9 +354,9 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
-        min_prior = p; //Round robin: acquires resource and starts running
+        min_prior = p; //Round robin: acquires resource and starts running. Step 3
 
-      for (p2 = ptable.proc; p2 < &ptable.proc[NPROC]; p2++) {
+      for (p2 = ptable.proc; p2 < &ptable.proc[NPROC]; p2++) { //Step 3
           if(p2->state != RUNNABLE)
               continue;
           min_prior = p2;
@@ -370,6 +372,7 @@ scheduler(void)
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
+
 
       c->proc = p;
       switchuvm(p);
@@ -424,11 +427,12 @@ yield(void)
 }
 
 void
-updatePriority(int prior_val) { //field with values ranging from 0-31
-                            //Implementing aging to avoid starvation
+updatePriority(int prior_val) {
+    //change the priority value of the current proc. Step 2
     struct  proc *currentProc = myproc();
     currentProc->prior_val = prior_val;
 
+    // transfer control to scheduler immediately because the priority rank has been changed. Step 2
     yield();
 }
 
