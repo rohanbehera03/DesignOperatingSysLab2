@@ -12,9 +12,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29dc64be-3aa0-49ba-a7dc-ae2be56165dd" name="Changes" comment="Added step 2 comments">
+    <list default="true" id="29dc64be-3aa0-49ba-a7dc-ae2be56165dd" name="Changes" comment="Added step 3 and 4 comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab2test.c" beforeDir="false" afterPath="$PROJECT_DIR$/lab2test.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proc.c" beforeDir="false" afterPath="$PROJECT_DIR$/proc.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,6 +106,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
     <configuration name="gdb-remote" type="CLion_Remote" version="1" remoteCommand="localhost:28210" symbolFile="$PROJECT_DIR$/kernel" sysroot="$PROJECT_DIR$/">
@@ -127,7 +127,8 @@
       <workItem from="1651128364580" duration="8117000" />
       <workItem from="1651593515828" duration="548000" />
       <workItem from="1651631034995" duration="32669000" />
-      <workItem from="1652072300723" duration="5332000" />
+      <workItem from="1652072300723" duration="6780000" />
+      <workItem from="1652673679219" duration="8090000" />
     </task>
     <task id="LOCAL-00001" summary="Start from scratch">
       <created>1650999206214</created>
@@ -220,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652079967078</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added step 3 and 4 comments">
+      <created>1652083540147</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1652083540147</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,6 +285,7 @@
     <MESSAGE value="Fixed output to display properly" />
     <MESSAGE value="Added step comments" />
     <MESSAGE value="Added step 2 comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added step 2 comments" />
+    <MESSAGE value="Added step 3 and 4 comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added step 3 and 4 comments" />
   </component>
 </project>
