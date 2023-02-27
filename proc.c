@@ -88,6 +88,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  p->prior_val = 0; //initializing priority value in allocproc() to 0. Step 1
 
   release(&ptable.lock);
 
@@ -208,6 +209,9 @@ fork(void)
       np->ofile[i] = filedup(curproc->ofile[i]);
   np->cwd = idup(curproc->cwd);
 
+    np->prior_val = curproc->prior_val; //Initialization of prior_value in fork()
+                                        // child inherits the parent's priority value. Step 1
+
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
   pid = np->pid;
@@ -231,8 +235,10 @@ exit(void)
   struct proc *p;
   int fd;
 
+
   if(curproc == initproc)
     panic("init exiting");
+
 
   // Close all open files.
   for(fd = 0; fd < NOFILE; fd++){
@@ -260,6 +266,13 @@ exit(void)
         wakeup1(initproc);
     }
   }
+
+    curproc->T_finish = ticks;
+    int timeTurnAround = curproc->T_finish - curproc->T_start;
+    int timeWaiting = timeTurnAround-curproc->T_burst;
+
+    cprintf("Turnaround time = %d\n", timeTurnAround);
+    cprintf("Waiting time = %d\n", timeWaiting);
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
@@ -319,40 +332,71 @@ wait(void)
 //  - swtch to start running that process
 //  - eventually that process transfers control
 //      via swtch back to the scheduler.
+
+
 void
 scheduler(void)
 {
-  struct proc *p;
-  struct cpu *c = mycpu();
-  c->proc = 0;
-  
-  for(;;){
-    // Enable interrupts on this processor.
-    sti();
+    struct proc *p;
+    struct cpu *c = mycpu();
+    c->proc = 0;
 
-    // Loop over process table looking for process to run.
-    acquire(&ptable.lock);
-    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(p->state != RUNNABLE)
-        continue;
+    struct proc *p2; //Round robin: next runnable process p. Step 3
+    struct proc *min_prior; //Process with minimum priority from all processes. Step 3
 
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      c->proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
+    for(;;){
+        // Enable interrupts on this processor.
+        sti();
 
-      swtch(&(c->scheduler), p->context);
-      switchkvm();
+        // Loop over process table looking for process to run.
+        acquire(&ptable.lock);
+        for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+            if(p->state != RUNNABLE)
+                continue;
 
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      c->proc = 0;
+            min_prior = p; //Round robin: acquires resource and starts running. Step 3
+
+            for (p2 = ptable.proc; p2 < &ptable.proc[NPROC]; p2++) { //Step 3
+                if(p2->state != RUNNABLE)
+                    continue;
+                min_prior = p2;  // Priority scheduling
+                min_prior->T_burst = min_prior->T_burst + 1; //Step 5
+            }
+
+            //Step 4 If a process waits increase its priority
+            // (decrease its value). When it runs, decrease it (increase its value)
+            for (p2 = ptable.proc; p2 < &ptable.proc[NPROC]; p2++) {
+                if(p2->state != RUNNABLE || p2 == min_prior)
+                    continue;
+
+                if (p2->state == RUNNABLE && p2->prior_val > 0) {
+                    p2->prior_val--;
+                }
+                if (min_prior->prior_val < 31) {
+                    min_prior->prior_val++;
+                }
+            }
+
+            // Switch to chosen process.  It is the process's job
+            // to release ptable.lock and then reacquire it
+            // before jumping back to us.
+
+            //Step 3. RUNNABLE process acquires CPU resources and start RUNNING;
+            c->proc = p;
+            switchuvm(p);
+            p->state = RUNNING;
+
+            swtch(&(c->scheduler), p->context);
+            switchkvm();
+
+
+            // Process is done running for now.
+            // It should have changed its p->state before coming back.
+            c->proc = 0;
+        }
+        release(&ptable.lock);
+
     }
-    release(&ptable.lock);
-
-  }
 }
 
 // Enter scheduler.  Must hold only ptable.lock
@@ -389,6 +433,16 @@ yield(void)
   myproc()->state = RUNNABLE;
   sched();
   release(&ptable.lock);
+}
+
+void
+setPrior(int prior_lvl) {
+    //change the priority value of the current proc. Step 2
+    struct  proc *currentProc = myproc();
+    currentProc->prior_val = prior_lvl;
+
+    // transfer control to scheduler immediately because the priority rank has been changed. Step 2
+    yield();
 }
 
 // A fork child's very first scheduling by scheduler()
